@@ -10,20 +10,37 @@ variable "folder_id" {
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
 }
 
-variable "default_zone" {
+variable "default_zone-a" {
   type        = string
   default     = "ru-central1-a"
   description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
 }
-variable "default_cidr" {
+variable "default_cidr-a" {
   type        = list(string)
   default     = ["10.1.30.0/24"]
   description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
 }
 
-variable "vpc_name" {
+variable "default_zone-b" {
   type        = string
-  default     = "terraform-lab"
+  default     = "ru-central1-b"
+  description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
+}
+variable "default_cidr-b" {
+  type        = list(string)
+  default     = ["10.1.40.0/24"]
+  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
+}
+
+variable "vpc_name1" {
+  type        = string
+  default     = "terraform-lab1"
+  description = "VPC network & subnet name"
+}
+
+variable "vpc_name2" {
+  type        = string
+  default     = "terraform-lab2"
   description = "VPC network & subnet name"
 }
 
