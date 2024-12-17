@@ -3,11 +3,13 @@
 
 variable "cloud_id" {
   type        = string
+  default     = "b1g6ufvpo7vkirq2qlm7"
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/cloud/get-id"
 }
 
 variable "folder_id" {
   type        = string
+  default     = "b1g7scrj5f0n2u2d9n3l"
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
 }
 
@@ -18,13 +20,13 @@ variable "default_zone" {
 }
 variable "default_cidr" {
   type        = list(string)
-  default     = ["10.0.1.0/24"]
+  default     = ["10.1.30.0/24"]
   description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
 }
 
 variable "vpc_name" {
   type        = string
-  default     = "develop"
+  default     = "terraform-lab"
   description = "VPC network & subnet name"
 }
 
@@ -33,6 +35,6 @@ variable "vpc_name" {
 
 variable "vms_ssh_root_key" {
   type        = string
-  default     = "<your_ssh_ed25519_key>"
+  default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMj9cW+g+/Nz7G8IgpTcUcupNyS7frO5j9e+7VSAkLp9"
   description = "ssh-keygen -t ed25519"
 }
