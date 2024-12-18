@@ -57,9 +57,15 @@ variable "vm_web_os_family" {
 }
 
 variable "vm_web_name" {
+ type        = string
+ default     = "web"
+ description = "web VM Name"
+}
+
+variable "vm_def_name" {
   type        = string
-  default     = "netology-develop-platform-web"
-  description = "VM Name"
+  default     = "netology-develop-platform-"
+  description = "Default VM Name"
 }
 
 variable "vm_web_platform" {

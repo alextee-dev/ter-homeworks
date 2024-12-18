@@ -5,9 +5,9 @@ variable "vm_db_os_family" {
 }
 
 variable "vm_db_name" {
-  type        = string
-  default     = "netology-develop-platform-db"
-  description = "VM Name"
+ type        = string
+ default     = "db"
+ description = "db VM Name"
 }
 
 variable "vm_db_platform" {
