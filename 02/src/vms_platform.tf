@@ -16,11 +16,11 @@ variable "vm_db_platform" {
   description = "VM Platform Id"
 }
 
-variable "vm_db_resources" {
-  type        = map(number)
-  default     = { cores = 2, memory = 2, core_fraction = 20 }
-  description = "VM Resources"
-}
+# variable "vm_db_resources" {
+#   type        = map(number)
+#   default     = { cores = 2, memory = 2, core_fraction = 20 }
+#   description = "VM Resources"
+# }
 
 variable "vm_db_zone" {
   type        = string

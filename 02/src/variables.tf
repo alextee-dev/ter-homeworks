@@ -44,11 +44,11 @@ variable "vpc_name2" {
   description = "VPC network & subnet name"
 }
 
-variable "vms_ssh_root_key" {
-  type        = string
-  default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMj9cW+g+/Nz7G8IgpTcUcupNyS7frO5j9e+7VSAkLp9"
-  description = "ssh-keygen -t ed25519"
-}
+# variable "vms_ssh_root_key" {
+#   type        = string
+#   default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMj9cW+g+/Nz7G8IgpTcUcupNyS7frO5j9e+7VSAkLp9"
+#   description = "ssh-keygen -t ed25519"
+# }
 
 variable "vm_web_os_family" {
   type        = string
@@ -74,8 +74,42 @@ variable "vm_web_platform" {
   description = "VM Platform Id"
 }
 
-variable "vm_web_resources" {
-  type        = map(number)
-  default     = { cores = 2, memory = 1, core_fraction = 5 }
-  description = "VM Resources"
+# variable "vm_web_resources" {
+#   type        = map(number)
+#   default     = { cores = 2, memory = 1, core_fraction = 5 }
+#   description = "VM Resources"
+# }
+
+variable "vms_resources" {
+  type = map(object({
+    cores = number
+    memory = number
+    core_fraction = number
+  }))  
+  default = {
+    "web" = {
+      cores = 2
+      memory = 1
+      core_fraction = 5
+    },
+    "db" = {
+      cores = 2
+      memory = 2
+      core_fraction = 20 
+    }
+  }
+}
+
+variable "vms_meta" {
+  type = map(object({
+    serial-port-enable = number
+    ssh-keys = string
+  }))
+  default = {
+    "data" = {
+      serial-port-enable = 1
+      ssh-keys = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMj9cW+g+/Nz7G8IgpTcUcupNyS7frO5j9e+7VSAkLp9"
+    }
+  }
+  
 }
