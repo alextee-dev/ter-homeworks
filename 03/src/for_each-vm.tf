@@ -1,21 +1,19 @@
-data "yandex_compute_image" "ubuntu" {
-  family = "${var.vm_web_os_family}"
-}
-resource "yandex_compute_instance" "platform" {
-  depends_on = [yandex_compute_instance.platform2]
-
-  count = 2
-
-  name        = "${var.vm_def_name}${count.index+1}"
+resource "yandex_compute_instance" "platform2" {
+  for_each = {
+    "0" = "main"
+    "1" = "replica"
+  }
+  name        = "${var.each_vm[each.key]["vm_name"]}${each.value}"
   platform_id = "${var.vm_platform}"
   resources {
-    cores         = "${var.vm_web_resources.cores}"
-    memory        = "${var.vm_web_resources.memory}"
-    core_fraction = "${var.vm_web_resources.core_fraction}"
+    cores         = "${var.each_vm[each.key]["cpu"]}"
+    memory        = "${var.each_vm[each.key]["ram"]}"
+    core_fraction = "${var.each_vm[each.key]["core_fraction"]}"
   }
   boot_disk {
     initialize_params {
       image_id = data.yandex_compute_image.ubuntu.image_id
+      size   = "${var.each_vm[each.key]["disk_volume"]}"
     }
   }
   scheduling_policy {

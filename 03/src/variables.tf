@@ -34,27 +34,27 @@ variable "vm_web_os_family" {
   description = "OS Family"
 }
 
-variable "vm_web_platform" {
+variable "vm_platform" {
   type        = string
   default     = "standard-v2"
   description = "VM Platform Id"
 }
 
-variable "vm_web_resources" {
-  type        = map(number)
-  default     = { cores = 2, memory = 1, core_fraction = 5 }
-  description = "VM Resources"
-}
+ variable "vm_web_resources" {
+   type        = map(number)
+   default     = { cores = 2, memory = 1, core_fraction = 5 }
+   description = "VM Resources"
+ }
 
 variable "vms_meta" {
   type = map(object({
     serial-port-enable = number
-    ssh-keys = string
+#    ssh-keys = string
   }))
   default = {
     "data" = {
       serial-port-enable = 1
-      ssh-keys = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMj9cW+g+/Nz7G8IgpTcUcupNyS7frO5j9e+7VSAkLp9"
+#      ssh-keys = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMj9cW+g+/Nz7G8IgpTcUcupNyS7frO5j9e+7VSAkLp9"
     }
   }
   
@@ -64,4 +64,30 @@ variable "vm_def_name" {
   type        = string
   default     = "web-"
   description = "Default VM Name"
+}
+
+variable "each_vm" {
+  description = "each_virtual_machines"
+  type        = list(object({
+    vm_name = string
+    cpu  = number
+    ram  = number
+    core_fraction = number
+    disk_volume = number
+  }))
+  default     = [{
+    vm_name = "db-"
+    cpu = 2
+    ram = 2
+    core_fraction = 20
+    disk_volume = 10
+  },
+  {
+    vm_name = "db-"
+    cpu = 2
+    ram = 1
+    core_fraction = 5
+    disk_volume = 5
+  }
+  ]
 }
