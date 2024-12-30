@@ -46,6 +46,22 @@ variable "vm_platform" {
    description = "VM Resources"
  }
 
+variable "disk_properties" {
+  type = map(object({
+    name = string
+    type = string
+    size = number
+  }))
+  default = {
+    "data" = {
+      name = "disk-"
+      type = "network-hdd"
+      size = 1
+    }
+  }
+  
+}
+
 variable "vms_meta" {
   type = map(object({
     serial-port-enable = number
@@ -84,6 +100,13 @@ variable "each_vm" {
   },
   {
     vm_name = "db-"
+    cpu = 2
+    ram = 1
+    core_fraction = 5
+    disk_volume = 5
+  },
+  {
+    vm_name = "storage"
     cpu = 2
     ram = 1
     core_fraction = 5
