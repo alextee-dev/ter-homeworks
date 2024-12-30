@@ -29,6 +29,6 @@ resource "yandex_compute_instance" "platform" {
 
   metadata = {
     serial-port-enable = "${var.vms_meta.data.serial-port-enable}"
-    ssh-keys           = "${local.key}"
+    ssh-keys           = "${local.ubukey}"
   }
 }
