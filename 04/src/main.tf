@@ -18,20 +18,25 @@ resource "yandex_vpc_subnet" "develop_b" {
   v4_cidr_blocks = var.cidr2
 }
 
+module "vpc" {
+  source = "./vpc"
+  name = "develop-c"
+  zone = var.zone1
+  v4_cidr_blocks = ["10.0.3.0/24"]
+}
 
-module "test-vm" {
+module "marketing-vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
   env_name       = "develop" 
   network_id     = yandex_vpc_network.develop.id
-  subnet_zones   = ["ru-central1-a","ru-central1-b"]
+  subnet_zones   = [var.zone1,var.zone2]
   subnet_ids     = [yandex_vpc_subnet.develop_a.id,yandex_vpc_subnet.develop_b.id]
-  instance_name  = "webs"
+  instance_name  = var.vm_marketing_name
   instance_count = 2
-  image_family   = "ubuntu-2004-lts"
+  image_family   = var.vm_os_family
   public_ip      = true
 
   labels = { 
-    owner= "a.timofeev",
     project = "marketing"
      }
 
@@ -42,19 +47,18 @@ module "test-vm" {
 
 }
 
-module "example-vm" {
+module "analytics-vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
   env_name       = "stage"
   network_id     = yandex_vpc_network.develop.id
-  subnet_zones   = ["ru-central1-a"]
+  subnet_zones   = [var.zone1]
   subnet_ids     = [yandex_vpc_subnet.develop_a.id]
-  instance_name  = "web-stage"
+  instance_name  = var.vm_analytics_name
   instance_count = 1
-  image_family   = "ubuntu-2004-lts"
+  image_family   = var.vm_os_family
   public_ip      = true
 
   labels = { 
-    owner= "a.timofeev",
     project = "analytics"
      }
 

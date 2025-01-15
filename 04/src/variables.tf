@@ -48,19 +48,20 @@ variable "vms_ssh_root_key" {
   default     = "~/.ssh/ycservice.pub"
 }
 
-###example vm_web var
-variable "vm_web_name" {
+variable "vm_marketing_name" {
   type        = string
-  default     = "netology-develop-platform-web"
-  description = "example vm_web_ prefix"
+  default     = "webs"
 }
 
-###example vm_db var
-variable "vm_db_name" {
+variable "vm_analytics_name" {
   type        = string
-  default     = "netology-develop-platform-db"
-  description = "example vm_db_ prefix"
+  default     = "web-stage"
 }
 
+variable "vm_os_family" {
+  type        = string
+  default     = "ubuntu-2004-lts"
+  description = "OS Family"
+}
 
 
