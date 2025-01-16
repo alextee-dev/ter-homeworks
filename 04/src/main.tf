@@ -1,36 +1,9 @@
-#создаем облачную сеть
-# resource "yandex_vpc_network" "develop" {
-#   name = var.vpc_name
-# }
-
-# #создаем подсеть
-# resource "yandex_vpc_subnet" "develop_a" {
-#   name           = "${var.vpc_name}-a"
-#   zone           = var.zone1
-#   network_id     = yandex_vpc_network.develop.id
-#   v4_cidr_blocks = var.cidr1
-# }
-
-# resource "yandex_vpc_subnet" "develop_b" {
-#   name           = "${var.vpc_name}-b"
-#   zone           = var.zone2
-#   network_id     = yandex_vpc_network.develop.id
-#   v4_cidr_blocks = var.cidr2
-# }
-
 module "develop" {
   source = "./vpc"
   name = "${var.vpc_name}"
   zone = var.zone1
   v4_cidr_blocks = var.cidr1
 }
-
-# module "develop_b" {
-#   source = "./vpc"
-#   name = "${var.vpc_name}-b"
-#   zone = var.zone2
-#   v4_cidr_blocks = var.cidr2
-# }
 
 module "marketing-vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
@@ -76,7 +49,6 @@ module "analytics-vm" {
 
 }
 
-#Пример передачи cloud-config в ВМ для демонстрации №3
 data template_file "cloudinit" {
   template = file("./cloud-init.yml")
 
