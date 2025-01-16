@@ -8,14 +8,14 @@ terraform {
 }
 
 #создаем облачную сеть
-resource "yandex_vpc_network" "prod" {
-  name = var.name
+resource "yandex_vpc_network" "develop" {
+  name = "develop"
 }
 
 #создаем подсеть
-resource "yandex_vpc_subnet" "prod_a" {
+resource "yandex_vpc_subnet" "develop_sub" {
   name           = var.name
   zone           = var.zone
-  network_id     = yandex_vpc_network.prod.id
+  network_id     = yandex_vpc_network.develop.id
   v4_cidr_blocks = var.v4_cidr_blocks
 }
