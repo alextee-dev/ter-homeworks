@@ -64,4 +64,48 @@ variable "vm_os_family" {
   description = "OS Family"
 }
 
+variable "vpc_prod" {
+  description = "List of subnets with zones and CIDR blocks"
+  type = list(object({
+    zone = string
+    cidr = list(string)
+  }))
+  default = [
+    {
+      zone = "ru-central1-a"
+      cidr = ["10.0.1.0/24"]
+    },
+    {
+      zone = "ru-central1-b"
+      cidr = ["10.0.2.0/24"]
+    },
+    {
+      zone = "ru-central1-d"
+      cidr = ["10.0.3.0/24"]
+    }
+  ]
+}
 
+variable "vpc_dev" {
+  description = "List of subnets with zones and CIDR blocks"
+  type = list(object({
+    zone = string
+    cidr = list(string)
+  }))
+  default = [
+    {
+      zone = "ru-central1-a"
+      cidr = ["10.0.1.0/24"]
+    }
+  ]
+}
+
+variable "prod_name" {
+  type        = string
+  default     = "prod"
+}
+
+variable "dev_name" {
+  type        = string
+  default     = "dev"
+}
