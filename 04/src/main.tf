@@ -1,10 +1,4 @@
-# module "develop" {
-#   source = "./vpc"
-#   name = "${var.vpc_name}"
-#   zone = var.zone1
-#   v4_cidr_blocks = var.cidr1
-# }
-
+# Модуль создания сети prod
 module "vpc_prod" {
   source       = "./vpc"
   env_name     = var.prod_name
@@ -12,6 +6,7 @@ module "vpc_prod" {
   subnets = var.vpc_prod
 }
 
+# Модуль создания сети dev
 module "vpc_dev" {
   source       = "./vpc"
   env_name     = var.dev_name
@@ -19,28 +14,22 @@ module "vpc_dev" {
   subnets = var.vpc_dev
 }
 
+# Модуль создания кластера MySQL
 module "mysql" {
   source = "./mysql"
-  name = "mysql_cl1"
+  name = var.cluster_name
   network_id = module.vpc_prod.yandex_vpc_network.id
   subnet_id = module.vpc_prod.yandex_vpc_subnet.ru-central1-a.id
   
 }
 
-# resource "yandex_mdb_mysql_database" "<имя_БД>" {
-#   cluster_id = "<идентификатор_кластера>"
-#   name       = "<имя_БД>"
-# }
-
-# resource "yandex_mdb_mysql_user" "<имя_пользователя>" {
-#   cluster_id = "<идентификатор_кластера>"
-#   name       = "<имя_пользователя>"
-#   password   = "<пароль_пользователя>"
-#   permission {
-#     database_name = "<имя_БД>"
-#     roles         = ["ALL"]
-#   }
-# }
+# Модуль создания БД и пользователя
+module "mysql_db" {
+  source = "./mysql_db"
+  cluster_id = module.mysql.yandex_mdb_mysql_cluster.id
+  db_name = var.db_name
+  db_user = var.db_user
+}
 
 # module "marketing-vm" {
 #   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"

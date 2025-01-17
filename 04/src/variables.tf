@@ -109,3 +109,18 @@ variable "dev_name" {
   type        = string
   default     = "dev"
 }
+
+variable "cluster_name" {
+  type = string
+  default = "mysql_cl1"
+}
+
+variable "db_name" {
+  type = string
+  default = "QWERTYdb"
+}
+
+variable "db_user" {
+  type = string
+  default = "testuser"
+}

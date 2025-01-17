@@ -9,31 +9,23 @@ terraform {
 
 resource "yandex_mdb_mysql_cluster" "mysql_cluster" {
   name                = var.name
-  environment         = "PRESTABLE"
+  environment         = var.mysql_resources.data.environment
   network_id          = var.network_id
-  version             = "8.0"
-#  security_group_ids  = [ "<список_идентификаторов_групп_безопасности>" ]
-  deletion_protection = false
+  version             = var.mysql_resources.data.version
+  deletion_protection = var.mysql_resources.data.deletion_protection
 
   resources {
-    resource_preset_id = "c3-c2-m4"
-    disk_type_id       = "network-hdd"
-    disk_size          = 20
+    resource_preset_id = var.mysql_resources.data.resource_preset_id
+    disk_type_id       = var.mysql_resources.data.disk_type_id
+    disk_size          = var.mysql_resources.data.disk_size
   }
 
-  host {
-    zone             = "ru-central1-a"
-    subnet_id        = var.subnet_id
-    assign_public_ip = true
-#    priority         = <приоритет_при_выборе_хоста-мастера>
-#    backup_priority  = <приоритет_для_резервного_копирования>
-  }
-
-    host {
-    zone             = "ru-central1-a"
-    subnet_id        = var.subnet_id
-    assign_public_ip = true
-#    priority         = <приоритет_при_выборе_хоста-мастера>
-#    backup_priority  = <приоритет_для_резервного_копирования>
+  dynamic "host" {
+    for_each = var.HA ? [for i in range(var.host_count) : i] : [1]
+    content {
+      subnet_id       = var.subnet_id
+      zone            = var.mysql_resources.data.zone
+      assign_public_ip = var.mysql_resources.data.assign_public_ip
+    }
   }
 }
