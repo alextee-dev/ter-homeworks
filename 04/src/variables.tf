@@ -110,17 +110,32 @@ variable "dev_name" {
   default     = "dev"
 }
 
-variable "cluster_name" {
+variable "cluster1_name" {
   type = string
-  default = "mysql_cl1"
+  default = "managed"
 }
 
-variable "db_name" {
+variable "cluster2_name" {
+  type = string
+  default = "example"
+}
+
+variable "db_managed_name" {
   type = string
   default = "QWERTYdb"
 }
 
-variable "db_user" {
+variable "db_managed_user" {
   type = string
   default = "testuser"
+}
+
+variable "db_example_name" {
+  type = string
+  default = "test"
+}
+
+variable "db_example_user" {
+  type = string
+  default = "app"
 }

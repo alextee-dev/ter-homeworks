@@ -15,7 +15,7 @@ variable "subnet_id" {
 
 variable "HA" {
   type        = bool
-  default     = true
+  default     = null
 }
 
 variable "host_count" {
